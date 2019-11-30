@@ -3,10 +3,15 @@ package com.bridgelabz.indianstate;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class JunitStateCodeAndCensusTestClass {
+public class JunitStateCodeAndCensusTestClass<T> {
+
+    private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode.csv";
+    private static final String STATECENSUS_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/StateCensusData.csv";
+
     @Test
     public void givenStateCodeCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
         String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37);
+
         Assert.assertEquals("HAPPY", result);
     }
 
@@ -86,4 +91,8 @@ public class JunitStateCodeAndCensusTestClass {
 
         }
     }
+
+
+
 }
+
