@@ -33,7 +33,7 @@ public class StateCodeAndCensusAnalyser {
                 return "SAD";
         }
         catch (NoSuchFileException e){
-            throw  new StateCensusAnalysisException("Please Enter valid File Name");
+            throw  new StateCensusAnalysisException("Please Enter valid File Name or File Type");
         }
         catch (IOException e) {
             e.printStackTrace();

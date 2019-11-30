@@ -15,11 +15,21 @@ public class JunitStateCodeAndCensusTestClass {
         String result = null;
         try {
             result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37);
-            Assert.assertEquals("HAPPY", result);
+
         } catch (StateCensusAnalysisException e) {
 
-            Assert.assertEquals("Please Enter valid File Name", e.getMessage());
+            Assert.assertEquals("Please Enter valid File Name or File Type", e.getMessage());
             e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void givenIncorrectFileType_Should_ThrowStateCensusAnalysisException() {
+        try {
+            String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37);
+        } catch (StateCensusAnalysisException e) {
+            Assert.assertEquals("Please Enter valid File Name or File Type",e.getMessage());
         }
 
     }
