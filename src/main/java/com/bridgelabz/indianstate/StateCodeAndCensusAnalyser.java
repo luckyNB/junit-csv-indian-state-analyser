@@ -13,6 +13,8 @@ import java.util.Iterator;
 
 public class StateCodeAndCensusAnalyser {
     private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode.csv";
+    private static final String STATECENSUS_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/StateCensusData.csv";
+
 
     public static int counter;
 
@@ -40,4 +42,32 @@ public class StateCodeAndCensusAnalyser {
         }
         return null;
     }
+
+    public static String totalRecordAvailableInStateCensus(int expected) throws StateCensusAnalysisException {
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(STATECENSUS_CSV_FILE_PATH));
+            CSVReader csvReader = new CSVReader(reader);
+            CsvToBean<StateCensusPOJO> csvToBean = new CsvToBeanBuilder(reader).withType(StateCensusPOJO.class).withIgnoreLeadingWhiteSpace(true).build();
+            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
+            while (csvUserIterator.hasNext()) {
+                StateCensusPOJO csvUser = csvUserIterator.next();
+                counter++;
+                System.out.println(csvUser.toString());
+            }
+            if (expected == counter)
+                return "HAPPY";
+
+            else
+                return "SAD";
+        } catch (NoSuchFileException e) {
+            throw new StateCensusAnalysisException("Please Enter valid File Name or File Type");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (RuntimeException e) {
+            throw new StateCensusAnalysisException("Wrong Delimeter or Wrong Header");
+        }
+        return null;
+    }
+
+
 }
