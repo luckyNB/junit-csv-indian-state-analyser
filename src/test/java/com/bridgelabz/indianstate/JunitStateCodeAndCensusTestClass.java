@@ -33,4 +33,15 @@ public class JunitStateCodeAndCensusTestClass {
         }
 
     }
+
+    @Test
+    public void givenIncorrectDelimeter_Should_ThrowStateCensusAnalysisException() {
+
+        try {
+            String result=StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37);
+        } catch (StateCensusAnalysisException e) {
+            Assert.assertEquals("Wrong Delimeter entered",e.getMessage());
+        }
+
+    }
 }

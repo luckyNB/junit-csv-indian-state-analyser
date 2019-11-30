@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class StateCodeAndCensusAnalyser {
-    private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode1.csv";
+    private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode.csv";
 
     public static int counter;
 
@@ -31,14 +31,13 @@ public class StateCodeAndCensusAnalyser {
 
             else
                 return "SAD";
-        }
-        catch (NoSuchFileException e){
-            throw  new StateCensusAnalysisException("Please Enter valid File Name or File Type");
-        }
-        catch (IOException e) {
+        } catch (NoSuchFileException e) {
+            throw new StateCensusAnalysisException("Please Enter valid File Name or File Type");
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (RuntimeException e) {
+            throw new StateCensusAnalysisException("Wrong Delimeter entered");
         }
-
         return null;
     }
 }
