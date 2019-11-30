@@ -54,16 +54,27 @@ public class JunitStateCodeAndCensusTestClass {
     @Test
     public void givenStateCensusCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
         String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
-        Assert.assertEquals("HAPPY",result);
+        Assert.assertEquals("HAPPY", result);
     }
 
     @Test
     public void givenIncorrectFileNameToCensusCSVFile_Should_ThrowStateCensusAnalysisException() {
         try {
-            String result=StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
+            String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
 
         } catch (StateCensusAnalysisException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void givenIncorrectDelimeterToStateCensus_Should_ThroStateCensusAnalysisException() {
+        try {
+            String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
+        } catch (StateCensusAnalysisException e) {
+            Assert.assertEquals("Wrong Delimeter or Wrong Header", e.getMessage());
+
+        }
+
     }
 }
