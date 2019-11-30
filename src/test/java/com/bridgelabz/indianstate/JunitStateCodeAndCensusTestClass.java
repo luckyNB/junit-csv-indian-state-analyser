@@ -68,13 +68,22 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenIncorrectDelimeterToStateCensus_Should_ThroStateCensusAnalysisException() {
+    public void givenIncorrectDelimeterToStateCensus_Should_ThrowStateCensusAnalysisException() {
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
         } catch (StateCensusAnalysisException e) {
             Assert.assertEquals("Wrong Delimeter or Wrong Header", e.getMessage());
 
         }
+    }
 
+    @Test
+    public void givenIncorrectHeader_Should_ThrowStateCensusAnalysisException() {
+        try {
+            String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
+        } catch (StateCensusAnalysisException e) {
+            Assert.assertEquals("Wrong Delimeter or Wrong Header", e.getMessage());
+
+        }
     }
 }

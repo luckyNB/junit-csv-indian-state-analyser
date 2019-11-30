@@ -47,10 +47,10 @@ public class StateCodeAndCensusAnalyser {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(STATECENSUS_CSV_FILE_PATH));
             CSVReader csvReader = new CSVReader(reader);
-            CsvToBean<StateCensusPOJO> csvToBean = new CsvToBeanBuilder(reader).withType(StateCensusPOJO.class).withIgnoreLeadingWhiteSpace(true).build();
-            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
+            CsvToBean<StateCodePOJO> csvToBean = new CsvToBeanBuilder(reader).withType(StateCodePOJO.class).withIgnoreLeadingWhiteSpace(true).build();
+            Iterator<StateCodePOJO> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
-                StateCensusPOJO csvUser = csvUserIterator.next();
+                StateCodePOJO csvUser = csvUserIterator.next();
                 counter++;
                 System.out.println(csvUser.toString());
             }
