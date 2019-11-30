@@ -56,4 +56,14 @@ public class JunitStateCodeAndCensusTestClass {
         String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
         Assert.assertEquals("HAPPY",result);
     }
+
+    @Test
+    public void givenIncorrectFileNameToCensusCSVFile_Should_ThrowStateCensusAnalysisException() {
+        try {
+            String result=StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29);
+
+        } catch (StateCensusAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
 }
