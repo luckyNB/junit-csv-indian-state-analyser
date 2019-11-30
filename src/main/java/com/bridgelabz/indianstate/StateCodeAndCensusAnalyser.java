@@ -36,7 +36,7 @@ public class StateCodeAndCensusAnalyser {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (RuntimeException e) {
-            throw new StateCensusAnalysisException("Wrong Delimeter entered");
+            throw new StateCensusAnalysisException("Wrong Delimeter or Wrong Header");
         }
         return null;
     }
