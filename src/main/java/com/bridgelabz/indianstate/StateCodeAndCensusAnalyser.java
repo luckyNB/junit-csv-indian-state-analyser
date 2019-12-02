@@ -11,17 +11,17 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-public class StateCodeAndCensusAnalyser {
+public class StateCodeAndCensusAnalyser<T> {
     private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode.csv";
     private static final String STATECENSUS_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/StateCensusData.csv";
 
 
-    public static Integer counter;
+    public static Integer counter=0;
 
-    public static String totalRecordAvailableInStateCode(int expected) throws StateCensusAnalysisException {
+    public static String totalRecordAvailableInStateCode(int expected,String stateCodeCsvFilePath,String stateCodePojoClassPath) throws StateCensusAnalysisException {
         try {
 
-            CsvToBean<StateCodePOJO> csvToBean = StateCodeAndCensusAnalyser.OpenCSVBuilder("STATECODE_CSV_FILE_PATH","com.bridgelabz.StateCodePOJO");
+            CsvToBean<StateCodePOJO> csvToBean = StateCodeAndCensusAnalyser.OpenCSVBuilder(stateCodeCsvFilePath,stateCodePojoClassPath);
             Iterator<StateCodePOJO> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
                 StateCodePOJO csvUser = csvUserIterator.next();
@@ -41,14 +41,12 @@ public class StateCodeAndCensusAnalyser {
     }
 
 
-    public static String totalRecordAvailableInStateCensus(int expected) throws StateCensusAnalysisException {
+    public static String totalRecordAvailableInStateCensus(int expected,String stateCensusFilePath,String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(STATECENSUS_CSV_FILE_PATH));
-            CSVReader csvReader = new CSVReader(reader);
-            CsvToBean<StateCodePOJO> csvToBean = new CsvToBeanBuilder(reader).withType(StateCodePOJO.class).withIgnoreLeadingWhiteSpace(true).build();
-            Iterator<StateCodePOJO> csvUserIterator = csvToBean.iterator();
+            CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.OpenCSVBuilder(stateCensusFilePath,stateCensusPojoClassPath);
+            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
-                StateCodePOJO csvUser = csvUserIterator.next();
+                StateCensusPOJO csvUser = csvUserIterator.next();
                 counter++;
                 System.out.println(csvUser.toString());
             }
@@ -57,18 +55,13 @@ public class StateCodeAndCensusAnalyser {
 
             else
                 return "SAD";
-        } catch (NoSuchFileException e) {
-            throw new StateCensusAnalysisException("Please Enter valid File Name or File Type");
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (RuntimeException e) {
             e.printStackTrace();
             throw new StateCensusAnalysisException("Wrong Delimeter or Wrong Header");
         }
-        return null;
     }
 
-    public static  <T> CsvToBean OpenCSVBuilder(String filename, String classname) {
+    public static  <T> CsvToBean OpenCSVBuilder(String filename, String classname) throws StateCensusAnalysisException {
         int count = 0;
         Iterator<T> csvDataIterator = null;
         CsvToBean<T> csvToBean;
@@ -84,7 +77,8 @@ public class StateCodeAndCensusAnalyser {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new StateCensusAnalysisException("POJO class or qualified path is wrong");
+
         }
         return null;
     }
