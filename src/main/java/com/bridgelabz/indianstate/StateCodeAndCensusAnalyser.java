@@ -12,15 +12,10 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class StateCodeAndCensusAnalyser<T> {
-    private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode.csv";
-    private static final String STATECENSUS_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/StateCensusData.csv";
-
-
     public static Integer counter=0;
 
     public static String totalRecordAvailableInStateCode(int expected,String stateCodeCsvFilePath,String stateCodePojoClassPath) throws StateCensusAnalysisException {
         try {
-
             CsvToBean<StateCodePOJO> csvToBean = StateCodeAndCensusAnalyser.OpenCSVBuilder(stateCodeCsvFilePath,stateCodePojoClassPath);
             Iterator<StateCodePOJO> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
@@ -30,16 +25,13 @@ public class StateCodeAndCensusAnalyser<T> {
             }
             if (expected == counter)
                 return "HAPPY";
-
             else
                 return "SAD";
         }  catch (RuntimeException e) {
             e.printStackTrace();
             throw new StateCensusAnalysisException("Wrong Delimeter or Wrong Header");
         }
-
     }
-
 
     public static String totalRecordAvailableInStateCensus(int expected,String stateCensusFilePath,String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         try {
@@ -72,16 +64,12 @@ public class StateCodeAndCensusAnalyser<T> {
                     .withType(Class.forName(classname))
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-            //csvDataIterator = csvToBean.iterator();
             return csvToBean;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new StateCensusAnalysisException("POJO class or qualified path is wrong");
-
         }
         return null;
     }
-
-
 }
