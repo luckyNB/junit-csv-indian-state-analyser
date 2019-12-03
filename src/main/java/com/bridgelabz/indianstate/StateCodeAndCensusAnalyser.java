@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class StateCodeAndCensusAnalyser<T> {
     public static Integer counter = 0;
@@ -52,7 +55,7 @@ public class StateCodeAndCensusAnalyser<T> {
 
     public static <T> CsvToBean openCSVBuilder(String filename, String classname) throws StateCensusAnalysisException {
         int count = 0;
-        Iterator<T> csvDataIterator = null;
+        // Iterator<T> csvDataIterator = null;
         CsvToBean<T> csvToBean;
         try {
             //   Class classTemp = Class.forName(classname);
@@ -69,6 +72,54 @@ public class StateCodeAndCensusAnalyser<T> {
             throw new StateCensusAnalysisException("POJO class or qualified path is wrong");
         }
         return null;
+    }
+
+    public static void loadingCSVStatesDataInto(String stateCodeFilePath, String stateCodePojoClassPath, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
+     try {
+
+            CsvToBean<StateCodePOJO> csvToBeanStateCode = StateCodeAndCensusAnalyser.openCSVBuilder(stateCodeFilePath, stateCodePojoClassPath);
+            Iterator<StateCodePOJO> csvStateCodeIterator = csvToBeanStateCode.iterator();
+            List<StateCensusData> stateCensusDataList = new ArrayList<>();
+            while (csvStateCodeIterator.hasNext()) {
+                StateCodePOJO stateCodePOJO = csvStateCodeIterator.next();
+                CsvToBean<StateCensusPOJO> csvToBeanStateCensus = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
+                Iterator<StateCensusPOJO> csvStateCensusIterator = csvToBeanStateCensus.iterator();
+
+                while (csvStateCensusIterator.hasNext()) {
+                    StateCensusPOJO stateCensusPOJO = csvStateCensusIterator.next();
+
+
+                    if (stateCodePOJO.getState().contains(stateCensusPOJO.getState())) {
+
+                        StateCensusData stateCensusData=new StateCensusData();
+                        stateCensusData.setSrNo(stateCodePOJO.getSrNo());
+                        stateCensusData.setState(stateCodePOJO.getState());
+                        stateCensusData.setTIN(stateCodePOJO.getTIN());
+                        stateCensusData.setStateCode(stateCodePOJO.getStateCode());
+                        stateCensusData.setDensityPerSqKm(stateCensusPOJO.getDensityPerSqKm());
+                        stateCensusData.setAreaInSqKm(stateCensusPOJO.getAreaInSqKm());
+                        stateCensusData.setPopulation(stateCensusPOJO.getPopulation());
+                        stateCensusDataList.add(stateCensusData);
+                        break;
+
+                    }
+
+                }
+               // System.out.println(stateCensusDataList.toString());
+            }
+
+
+            for (StateCensusData censusData:stateCensusDataList){
+                System.out.println(censusData.toString());
+            }
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new StateCensusAnalysisException("POJO class or qualified path is wrong");
+
+        }
+
+
     }
 
 

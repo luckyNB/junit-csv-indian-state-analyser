@@ -7,7 +7,7 @@ public class StateCodePOJO {
     private String SrNo;
 
     @CsvBindByName(column = "StateName")
-    private String StateName;
+    private String State;
 
 
     @CsvBindByName(column = "TIN")
@@ -24,12 +24,12 @@ public class StateCodePOJO {
         SrNo = srNo;
     }
 
-    public String getStateName() {
-        return StateName;
+    public String getState() {
+        return State;
     }
 
-    public void setStateName(String stateName) {
-        StateName = stateName;
+    public void setState(String state) {
+        State = state;
     }
 
     public String getTIN() {
@@ -52,7 +52,7 @@ public class StateCodePOJO {
     public String toString() {
         return "StateCodePOJO{" +
                 "SrNo='" + SrNo + '\'' +
-                ", StateName='" + StateName + '\'' +
+                ", State='" + State + '\'' +
                 ", TIN='" + TIN + '\'' +
                 ", StateCode='" + StateCode + '\'' +
                 '}';

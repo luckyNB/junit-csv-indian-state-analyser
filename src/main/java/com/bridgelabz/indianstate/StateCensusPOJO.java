@@ -3,8 +3,17 @@ package com.bridgelabz.indianstate;
 import com.opencsv.bean.CsvBindByName;
 
 public class StateCensusPOJO {
-    @CsvBindByName(column = "StateName" )
-    private String StateName;
+    @CsvBindByName(column = "State")
+    private String State;
+
+    @CsvBindByName(column = "SrNo")
+    private String SrNo;
+
+    @CsvBindByName(column = "TIN")
+    private String TIN;
+
+    @CsvBindByName(column = "StateCode")
+    private String StateCode;
 
     @CsvBindByName(column = "Population")
     private String Population;
@@ -39,18 +48,18 @@ public class StateCensusPOJO {
         DensityPerSqKm = densityPerSqKm;
     }
 
-    public String getStateName() {
-        return StateName;
+    public String getState() {
+        return State;
     }
 
-    public void setStateName(String stateName) {
-        StateName = stateName;
+    public void setState(String state) {
+        State = state;
     }
 
     @Override
     public String toString() {
         return "StateCensusPOJO{" +
-                "StateName='" + StateName + '\'' +
+                "State='" + State + '\'' +
                 ", Population='" + Population + '\'' +
                 ", AreaInSqKm='" + AreaInSqKm + '\'' +
                 ", DensityPerSqKm='" + DensityPerSqKm + '\'' +

@@ -7,13 +7,15 @@ public class StateCensusData {
     private String SrNo;
 
     @CsvBindByName(column = "StateName")
-    private String StateName;
+    private String State;
+
 
     @CsvBindByName(column = "TIN")
     private String TIN;
 
     @CsvBindByName(column = "StateCode")
     private String StateCode;
+
 
     @CsvBindByName(column = "Population")
     private String Population;
@@ -33,12 +35,12 @@ public class StateCensusData {
         SrNo = srNo;
     }
 
-    public String getStateName() {
-        return StateName;
+    public String getState() {
+        return State;
     }
 
-    public void setStateName(String stateName) {
-        StateName = stateName;
+    public void setState(String state) {
+        State = state;
     }
 
     public String getTIN() {
@@ -85,7 +87,7 @@ public class StateCensusData {
     public String toString() {
         return "StateCensusData{" +
                 "SrNo='" + SrNo + '\'' +
-                ", StateName='" + StateName + '\'' +
+                ", State='" + State + '\'' +
                 ", TIN='" + TIN + '\'' +
                 ", StateCode='" + StateCode + '\'' +
                 ", Population='" + Population + '\'' +
