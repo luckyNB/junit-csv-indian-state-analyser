@@ -41,9 +41,10 @@ public class StateCodeAndCensusAnalyser<T> {
         return list;
     }
 
-    public static void writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
+    public static int writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
+        List<StateCensusPOJO> list = new ArrayList<>();
         try {
-            List<StateCensusPOJO> list = new ArrayList<>();
+
             CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
             Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
@@ -60,6 +61,8 @@ public class StateCodeAndCensusAnalyser<T> {
         } catch (RuntimeException | StateCensusAnalysisException e) {
             e.printStackTrace();
         }
+
+        return (list.size());
     }
 
     private static boolean writingStateCensusDataIntoJsonFile(List<StateCensusPOJO> list) {
