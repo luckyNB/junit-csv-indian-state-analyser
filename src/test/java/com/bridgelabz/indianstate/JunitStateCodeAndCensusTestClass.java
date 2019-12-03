@@ -12,7 +12,7 @@ public class JunitStateCodeAndCensusTestClass {
 
     @Test
     public void givenStateCodeCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
-      StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(STATECENSUS_CSV_FILE_PATH,stateCensusClassPath);
+      StateCodeAndCensusAnalyser.writingAndSortingStateCensusDataIntoJsonFile(STATECENSUS_CSV_FILE_PATH,stateCensusClassPath);
 
         String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);
 

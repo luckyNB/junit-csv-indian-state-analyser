@@ -1,6 +1,7 @@
 package com.bridgelabz.indianstate;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -9,7 +10,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 public class StateCodeAndCensusAnalyser<T> {
     public static Integer counter = 0;
@@ -32,71 +36,34 @@ public class StateCodeAndCensusAnalyser<T> {
         }
     }
 
-
-    public static HashMap<String, StateCensusPOJO> sortByKeyValue(HashMap<String, StateCensusPOJO> hm) {
-        // Create a list from elements of HashMap
-        List<Map.Entry<String, StateCensusPOJO>> list =
-                new LinkedList<Map.Entry<String, StateCensusPOJO>>(hm.entrySet());
-
-        // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, StateCensusPOJO>>() {
-            public int compare(Map.Entry<String, StateCensusPOJO> o1,
-                               Map.Entry<String, StateCensusPOJO> o2) {
-                return (o1.getKey()).compareTo(o2.getKey());
-            }
-        });
-
-        // put data from sorted list to hashmap
-        HashMap<String, StateCensusPOJO> temp = new LinkedHashMap<String, StateCensusPOJO>();
-        for (Map.Entry<String, StateCensusPOJO> aa : list) {
-            temp.put(aa.getKey(), aa.getValue());
-        }
-        return temp;
+    public static List<StateCensusPOJO> sortingStateCensusDataByStateName(List<StateCensusPOJO> list) {
+        list.sort(Comparator.comparing(StateCensusPOJO::getStateName, Comparator.nullsFirst(Comparator.naturalOrder())));
+        return list;
     }
 
-    public static void writingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
-
+    public static void writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
         try {
-            Map<String, StateCensusPOJO> stringStateCensusPOJOMap = new HashMap();
+            List<StateCensusPOJO> list = new ArrayList<>();
             CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
             Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
             while (csvUserIterator.hasNext()) {
                 StateCensusPOJO csvUser = csvUserIterator.next();
-                stringStateCensusPOJOMap.put(csvUser.getStateName(), csvUser);
+                list.add(csvUser);
                 counter++;
                 System.out.println(csvUser.toString());
             }
-            for (Map.Entry<String, StateCensusPOJO> en : stringStateCensusPOJOMap.entrySet()) {
-                System.out.println("Key = " + en.getKey() +
-                        ", Value = " + en.getValue());
-            }
-
-            System.out.println("sotreedgdsgdsssssssssssz$%^&*()_+");
-            Map<String, StateCensusPOJO> sortedMap = sortByKeyValue((HashMap<String, StateCensusPOJO>) stringStateCensusPOJOMap);
-
-            for (Map.Entry<String, StateCensusPOJO> en : sortedMap.entrySet()) {
-                System.out.println("Key = " + en.getKey() +
-                        ", Value = " + en.getValue());
-            }
-
-            boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(sortedMap);
-            if (status){
+            List<StateCensusPOJO> sortedList = sortingStateCensusDataByStateName(list);
+            boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(list);
+            if (status) {
                 System.out.println("Data written into file successfully");
             }
         } catch (RuntimeException | StateCensusAnalysisException e) {
             e.printStackTrace();
-
         }
-
     }
 
-    private static boolean writingStateCensusDataIntoJsonFile(Map<String, StateCensusPOJO> sortedMap) {
-        List<StateCensusPOJO> list = new ArrayList<>();
-        for (Map.Entry<String, StateCensusPOJO> en : sortedMap.entrySet()) {
-            list.add(en.getValue());
-        }
-
-        Gson gson = new Gson();
+    private static boolean writingStateCensusDataIntoJsonFile(List<StateCensusPOJO> list) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(list);
         FileWriter fileWriter = null;
         try {
@@ -106,11 +73,8 @@ public class StateCodeAndCensusAnalyser<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return true;
     }
-
 
     public static String totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         try {
@@ -123,7 +87,6 @@ public class StateCodeAndCensusAnalyser<T> {
             }
             if (expected == counter)
                 return "HAPPY";
-
             else
                 return "SAD";
         } catch (RuntimeException e) {
@@ -152,6 +115,4 @@ public class StateCodeAndCensusAnalyser<T> {
         }
         return null;
     }
-
-
 }
