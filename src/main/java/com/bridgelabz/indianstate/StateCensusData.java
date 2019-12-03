@@ -2,9 +2,18 @@ package com.bridgelabz.indianstate;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class StateCensusPOJO {
-    @CsvBindByName(column = "StateName" )
+public class StateCensusData {
+    @CsvBindByName(column = "SrNo")
+    private String SrNo;
+
+    @CsvBindByName(column = "StateName")
     private String StateName;
+
+    @CsvBindByName(column = "TIN")
+    private String TIN;
+
+    @CsvBindByName(column = "StateCode")
+    private String StateCode;
 
     @CsvBindByName(column = "Population")
     private String Population;
@@ -14,6 +23,39 @@ public class StateCensusPOJO {
 
     @CsvBindByName(column = "DensityPerSqKm")
     private String DensityPerSqKm;
+
+
+    public String getSrNo() {
+        return SrNo;
+    }
+
+    public void setSrNo(String srNo) {
+        SrNo = srNo;
+    }
+
+    public String getStateName() {
+        return StateName;
+    }
+
+    public void setStateName(String stateName) {
+        StateName = stateName;
+    }
+
+    public String getTIN() {
+        return TIN;
+    }
+
+    public void setTIN(String TIN) {
+        this.TIN = TIN;
+    }
+
+    public String getStateCode() {
+        return StateCode;
+    }
+
+    public void setStateCode(String stateCode) {
+        StateCode = stateCode;
+    }
 
     public String getPopulation() {
         return Population;
@@ -39,18 +81,13 @@ public class StateCensusPOJO {
         DensityPerSqKm = densityPerSqKm;
     }
 
-    public String getStateName() {
-        return StateName;
-    }
-
-    public void setStateName(String stateName) {
-        StateName = stateName;
-    }
-
     @Override
     public String toString() {
-        return "StateCensusPOJO{" +
-                "StateName='" + StateName + '\'' +
+        return "StateCensusData{" +
+                "SrNo='" + SrNo + '\'' +
+                ", StateName='" + StateName + '\'' +
+                ", TIN='" + TIN + '\'' +
+                ", StateCode='" + StateCode + '\'' +
                 ", Population='" + Population + '\'' +
                 ", AreaInSqKm='" + AreaInSqKm + '\'' +
                 ", DensityPerSqKm='" + DensityPerSqKm + '\'' +

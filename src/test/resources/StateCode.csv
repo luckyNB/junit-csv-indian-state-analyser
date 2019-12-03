@@ -1,5 +1,5 @@
 SrNo,StateName                  ,TIN,StateCode
-1   ,Andaman and Nicobar Islands,35 ,AN
+1   ,Maharashtra                 ,27 ,MH
 2   ,Andhra Pradesh             ,28 ,AP
 3   ,Andhra Pradesh New         ,37 ,AD
 4   ,Arunachal Pradesh          ,12 ,AR
@@ -20,7 +20,6 @@ SrNo,StateName                  ,TIN,StateCode
 19  ,Kerala                     ,32 ,KL
 20  ,Lakshadweep Islands        ,31 ,LD
 21  ,Madhya Pradesh             ,23 ,MP
-22  ,Maharashtra                ,27 ,MH
 23  ,Manipur                    ,14 ,MN
 24  ,Meghalaya                  ,17 ,ME
 25  ,Mizoram                    ,15 ,MI
