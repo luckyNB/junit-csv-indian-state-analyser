@@ -1,0 +1,176 @@
+[
+  {
+    "StateName": "Sikkim                     ",
+    "Population": 607688.0,
+    "AreaInSqKm": 7096.0,
+    "DensityPerSqKm": 86.0
+  },
+  {
+    "StateName": "Mizoram                    ",
+    "Population": 1091014.0,
+    "AreaInSqKm": 21081.0,
+    "DensityPerSqKm": 52.0
+  },
+  {
+    "StateName": "Arunachal Pradesh          ",
+    "Population": 1382611.0,
+    "AreaInSqKm": 23.0,
+    "DensityPerSqKm": 45.0
+  },
+  {
+    "StateName": "Goa                        ",
+    "Population": 1457723.0,
+    "AreaInSqKm": 3702.0,
+    "DensityPerSqKm": 394.0
+  },
+  {
+    "StateName": "Nagaland                   ",
+    "Population": 1980602.0,
+    "AreaInSqKm": 16579.0,
+    "DensityPerSqKm": 119.0
+  },
+  {
+    "StateName": "Manipur                    ",
+    "Population": 2721756.0,
+    "AreaInSqKm": 22327.0,
+    "DensityPerSqKm": 122.0
+  },
+  {
+    "StateName": "Meghalaya                  ",
+    "Population": 2964007.0,
+    "AreaInSqKm": 22429.0,
+    "DensityPerSqKm": 132.0
+  },
+  {
+    "StateName": "Tripura                    ",
+    "Population": 3671032.0,
+    "AreaInSqKm": 10486.0,
+    "DensityPerSqKm": 350.0
+  },
+  {
+    "StateName": "Himachal Pradesh           ",
+    "Population": 6864602.0,
+    "AreaInSqKm": 55673.0,
+    "DensityPerSqKm": 123.0
+  },
+  {
+    "StateName": "Uttarakhand                ",
+    "Population": 1.0116752E7,
+    "AreaInSqKm": 53483.0,
+    "DensityPerSqKm": 189.0
+  },
+  {
+    "StateName": "Jammu and Kashmir          ",
+    "Population": 1.2548926E7,
+    "AreaInSqKm": 222236.0,
+    "DensityPerSqKm": 57.0
+  },
+  {
+    "StateName": "Haryana                    ",
+    "Population": 2.5353081E7,
+    "AreaInSqKm": 44212.0,
+    "DensityPerSqKm": 573.0
+  },
+  {
+    "StateName": "Chattisgarh                ",
+    "Population": 2.5540196E7,
+    "AreaInSqKm": 135191.0,
+    "DensityPerSqKm": 189.0
+  },
+  {
+    "StateName": "Punjab                     ",
+    "Population": 2.7704236E7,
+    "AreaInSqKm": 50362.0,
+    "DensityPerSqKm": 550.0
+  },
+  {
+    "StateName": "Assam                      ",
+    "Population": 3.1169272E7,
+    "AreaInSqKm": 78438.0,
+    "DensityPerSqKm": 397.0
+  },
+  {
+    "StateName": "Jharkhand                  ",
+    "Population": 3.2966238E7,
+    "AreaInSqKm": 79714.0,
+    "DensityPerSqKm": 414.0
+  },
+  {
+    "StateName": "Kerala                     ",
+    "Population": 3.3387677E7,
+    "AreaInSqKm": 38863.0,
+    "DensityPerSqKm": 859.0
+  },
+  {
+    "StateName": "Telangana                  ",
+    "Population": 3.5286757E7,
+    "AreaInSqKm": 114840.0,
+    "DensityPerSqKm": 307.0
+  },
+  {
+    "StateName": "Odisha                     ",
+    "Population": 4.1947358E7,
+    "AreaInSqKm": 155707.0,
+    "DensityPerSqKm": 269.0
+  },
+  {
+    "StateName": "Andhra Pradesh             ",
+    "Population": 4.9386799E7,
+    "AreaInSqKm": 162968.0,
+    "DensityPerSqKm": 303.0
+  },
+  {
+    "StateName": "Gujarat                    ",
+    "Population": 6.0383628E7,
+    "AreaInSqKm": 196024.0,
+    "DensityPerSqKm": 308.0
+  },
+  {
+    "StateName": "Karnataka                  ",
+    "Population": 6.1130704E7,
+    "AreaInSqKm": 191791.0,
+    "DensityPerSqKm": 319.0
+  },
+  {
+    "StateName": "Rajasthan                  ",
+    "Population": 6.8621012E7,
+    "AreaInSqKm": 342239.0,
+    "DensityPerSqKm": 201.0
+  },
+  {
+    "StateName": "Tamil Nadu                 ",
+    "Population": 7.2138958E7,
+    "AreaInSqKm": 130058.0,
+    "DensityPerSqKm": 555.0
+  },
+  {
+    "StateName": "Madhya Pradesh             ",
+    "Population": 7.2597565E7,
+    "AreaInSqKm": 308245.0,
+    "DensityPerSqKm": 236.0
+  },
+  {
+    "StateName": "West Bengal                ",
+    "Population": 9.1347736E7,
+    "AreaInSqKm": 88752.0,
+    "DensityPerSqKm": 1029.0
+  },
+  {
+    "StateName": "Bihar                      ",
+    "Population": 1.03804637E8,
+    "AreaInSqKm": 94163.0,
+    "DensityPerSqKm": 1102.0
+  },
+  {
+    "StateName": "Andaman and Nicobar Islands",
+    "Population": 1.12372972E8,
+    "AreaInSqKm": 307713.0,
+    "DensityPerSqKm": 365.0
+  },
+  {
+    "StateName": "Uttar Pradesh              ",
+    "Population": 1.99812341E8,
+    "AreaInSqKm": 240928.0,
+    "DensityPerSqKm": 828.0
+  }
+]

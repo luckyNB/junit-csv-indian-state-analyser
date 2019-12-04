@@ -12,7 +12,7 @@ public class JunitStateCodeAndCensusTestClass {
 
     @Test
     public void givenStateCodeCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
-      StateCodeAndCensusAnalyser.writingAndSortingStateCensusDataIntoJsonFile(STATECENSUS_CSV_FILE_PATH,stateCensusClassPath);
+        StateCodeAndCensusAnalyser.writingAndSortingStateCensusDataIntoJsonFile(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
 
         String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);
 
@@ -95,11 +95,14 @@ public class JunitStateCodeAndCensusTestClass {
 
         }
     }
+
     @Test
     public void storedSortedListOfStateCensusCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
-        int result = StateCodeAndCensusAnalyser.sortingStateCensusDataByAreaInSqKmInDescendingOrder( STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
+        StateCodeAndCensusAnalyser<String> obj = new StateCodeAndCensusAnalyser<>();
+        int result = obj.genericSort(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
         Assert.assertEquals(29, result);
     }
+
 
 }
 

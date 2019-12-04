@@ -7,35 +7,36 @@ public class StateCensusPOJO {
     private String StateName;
 
     @CsvBindByName(column = "Population")
-    private String Population;
+    private double Population;
 
     @CsvBindByName(column = "AreaInSqKm")
-    private String AreaInSqKm;
+    private double AreaInSqKm;
 
     @CsvBindByName(column = "DensityPerSqKm")
-    private String DensityPerSqKm;
+    private double DensityPerSqKm;
 
-    public String getPopulation() {
+
+    public double getPopulation() {
         return Population;
     }
 
-    public void setPopulation(String population) {
+    public void setPopulation(double population) {
         Population = population;
     }
 
-    public String getAreaInSqKm() {
+    public double getAreaInSqKm() {
         return AreaInSqKm;
     }
 
-    public void setAreaInSqKm(String areaInSqKm) {
+    public void setAreaInSqKm(double areaInSqKm) {
         AreaInSqKm = areaInSqKm;
     }
 
-    public String getDensityPerSqKm() {
+    public double getDensityPerSqKm() {
         return DensityPerSqKm;
     }
 
-    public void setDensityPerSqKm(String densityPerSqKm) {
+    public void setDensityPerSqKm(double densityPerSqKm) {
         DensityPerSqKm = densityPerSqKm;
     }
 
