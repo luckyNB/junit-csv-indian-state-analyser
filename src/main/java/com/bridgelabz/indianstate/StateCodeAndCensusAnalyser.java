@@ -41,11 +41,18 @@ public class StateCodeAndCensusAnalyser<T> {
         return list;
     }
 
+
     public static List<StateCensusPOJO> sortingStateCensusDataByPopulation(List<StateCensusPOJO> list) {
         Comparator<StateCensusPOJO> c = (s2, s1) -> Integer.parseInt(s2.getPopulation().trim()) - Integer.parseInt(s1.getPopulation().trim());
         list.sort(c);
         return list;
     }
+    public static List<StateCensusPOJO> sortingStateCensusDataByDesity(List<StateCensusPOJO> list) {
+        Comparator<StateCensusPOJO> c = (s1, s2) -> Integer.parseInt(s2.getDensityPerSqKm().trim()) - Integer.parseInt(s1.getDensityPerSqKm().trim());
+        list.sort(c);
+        return list;
+    }
+
     public static int writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
         List<StateCensusPOJO> list = new ArrayList<>();
         try {
@@ -110,6 +117,37 @@ public class StateCodeAndCensusAnalyser<T> {
 
         return (list.size());
     }
+
+
+    public static int sortingStateCensusDataByDensityInDescendingOrder(String stateCensusFilePath, String stateCensusPojoClassPath){
+        List<StateCensusPOJO> list = new ArrayList<>();
+        try {
+
+            CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
+            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
+            while (csvUserIterator.hasNext()) {
+                StateCensusPOJO csvUser = csvUserIterator.next();
+                list.add(csvUser);
+                counter++;
+                System.out.println(csvUser.toString());
+            }
+            List<StateCensusPOJO> sortedList = sortingStateCensusDataByDesity(list);
+            boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(sortedList,"/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/Density.json");
+            if (status) {
+                System.out.println("Data written into file successfully");
+            }
+
+        }
+        catch (RuntimeException | StateCensusAnalysisException e){
+            e.printStackTrace();
+        }
+
+        return (list.size());
+    }
+
+
+
+
 
     public static String totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         try {
