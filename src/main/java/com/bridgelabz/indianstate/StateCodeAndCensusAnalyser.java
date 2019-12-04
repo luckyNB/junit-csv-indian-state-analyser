@@ -41,6 +41,11 @@ public class StateCodeAndCensusAnalyser<T> {
         return list;
     }
 
+    public static List<StateCensusPOJO> sortingStateCensusDataByPopulation(List<StateCensusPOJO> list) {
+        Comparator<StateCensusPOJO> c = (s2, s1) -> Integer.parseInt(s2.getPopulation().trim()) - Integer.parseInt(s1.getPopulation().trim());
+        list.sort(c);
+        return list;
+    }
     public static int writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
         List<StateCensusPOJO> list = new ArrayList<>();
         try {
@@ -54,7 +59,7 @@ public class StateCodeAndCensusAnalyser<T> {
                 System.out.println(csvUser.toString());
             }
             List<StateCensusPOJO> sortedList = sortingStateCensusDataByStateName(list);
-            boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(list);
+            boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(list,"/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/SampleJson.json");
             if (status) {
                 System.out.println("Data written into file successfully");
             }
@@ -65,18 +70,45 @@ public class StateCodeAndCensusAnalyser<T> {
         return (list.size());
     }
 
-    private static boolean writingStateCensusDataIntoJsonFile(List<StateCensusPOJO> list) {
+    private static boolean writingStateCensusDataIntoJsonFile(List<StateCensusPOJO> list,String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(list);
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/SampleJson.json");
+            fileWriter = new FileWriter(filePath);
             fileWriter.write(json);
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return true;
+    }
+
+
+    public static int sortingStateCensusDataByPopulationInAscendingOrder(String stateCensusFilePath, String stateCensusPojoClassPath){
+        List<StateCensusPOJO> list = new ArrayList<>();
+        try {
+
+            CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
+            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
+            while (csvUserIterator.hasNext()) {
+                StateCensusPOJO csvUser = csvUserIterator.next();
+                list.add(csvUser);
+                counter++;
+                System.out.println(csvUser.toString());
+            }
+            List<StateCensusPOJO> sortedList = sortingStateCensusDataByPopulation(list);
+            boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(sortedList,"/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/population.json");
+            if (status) {
+                System.out.println("Data written into file successfully");
+            }
+
+        }
+        catch (RuntimeException | StateCensusAnalysisException e){
+            e.printStackTrace();
+        }
+
+        return (list.size());
     }
 
     public static String totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
