@@ -97,7 +97,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
     @Test
     public void storedSortedListOfStateCensusCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
-        int result = StateCodeAndCensusAnalyser.sortingStateCensusDataByDensityInDescendingOrder( STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
+        int result = StateCodeAndCensusAnalyser.sortingStateCensusDataByAreaInSqKmInDescendingOrder( STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
         Assert.assertEquals(29, result);
     }
 
