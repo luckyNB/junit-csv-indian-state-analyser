@@ -178,9 +178,9 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
                     try {
                         Field stateCensusField = StateCensusPOJO.class.getDeclaredField(onTheBasisOf);
                         stateCensusField.setAccessible(true);
-                        Comparable employeeFieldValue1 = (Comparable) stateCensusField.get(o1);
-                        Comparable employeeFieldValue2 = (Comparable) stateCensusField.get(o2);
-                        return employeeFieldValue1.compareTo(employeeFieldValue2);
+                        Comparable stateCensusFieldValue1 = (Comparable) stateCensusField.get(o1);
+                        Comparable stateCensusFieldValue2 = (Comparable) stateCensusField.get(o2);
+                        return stateCensusFieldValue1.compareTo(stateCensusFieldValue2);
                     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                         // when proper field is not entered sorting or any exception occurs
