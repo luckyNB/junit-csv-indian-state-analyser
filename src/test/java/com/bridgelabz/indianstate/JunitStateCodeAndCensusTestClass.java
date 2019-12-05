@@ -3,6 +3,8 @@ package com.bridgelabz.indianstate;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 public class JunitStateCodeAndCensusTestClass {
 
     private static final String STATECODE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/main/resources/StateCode.csv";
@@ -97,12 +99,34 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void storedSortedListOfStateCensusCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
+    public void sortedListOfStateCensusCSVDataByStateName_Should_AndamanandNicobarIslandsAsFirstStateName() throws StateCensusAnalysisException {
         StateCodeAndCensusAnalyser<String> obj = new StateCodeAndCensusAnalyser<>();
-        int result = obj.genericSort(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
-        Assert.assertEquals(29, result);
+        List<StateCensusPOJO> result = StateCodeAndCensusAnalyser.genericSort(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath, "StateName",
+                "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/StateName.json");
+        Assert.assertEquals("Andaman and Nicobar Islands", result.get(0).getStateName());
+    }
+
+    @Test
+    public void sortedListOfStateCensusCSVDataByPopulation_Should_UttarPradeshAsFirstStateName() {
+        List<StateCensusPOJO> result = StateCodeAndCensusAnalyser.genericSort(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath, "Population",
+                "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/population.json");
+        Assert.assertEquals("Uttar Pradesh", result.get((result.size() - 1)).getStateName().trim());
     }
 
 
+    @Test
+    public void sortedListOfStateCensusCSVDataByDensity_Should_BiharAsFirstStateName() {
+        List<StateCensusPOJO> result = StateCodeAndCensusAnalyser.genericSort(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath, "DensityPerSqKm",
+                "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/Density.json");
+        Assert.assertEquals("Bihar", result.get((result.size() - 1)).getStateName().trim());
+
+    }
+
+    @Test
+    public void sortedListOfStateCensusCSVDataByAreaSqKm_Should_RajshthanAsFirstStateName() {
+        List<StateCensusPOJO> result = StateCodeAndCensusAnalyser.genericSort(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath, "AreaInSqKm",
+                "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/areaInSQKM.json");
+    Assert.assertEquals("Rajasthan",result.get((result.size() - 1)).getStateName().trim());
+    }
 }
 
