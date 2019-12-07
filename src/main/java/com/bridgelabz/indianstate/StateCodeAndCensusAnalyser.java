@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
@@ -14,8 +15,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
-    public static Integer counter = 0;
-
     public static <T> CsvToBean openCSVBuilder(String filename, String classname) throws StateCensusAnalysisException {
         int count = 0;
         Iterator<T> csvDataIterator = null;
@@ -26,7 +25,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
             csvToBean = new CsvToBeanBuilder(reader)
                     .withType(Class.forName(classname))
                     .withIgnoreLeadingWhiteSpace(true)
-
+                    .withSeparator(',')
                     .build();
             return csvToBean;
         } catch (IOException e) {
@@ -38,6 +37,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
     }
 
     public static String totalRecordAvailableInStateCode(int expected, String stateCodeCsvFilePath, String stateCodePojoClassPath) throws StateCensusAnalysisException {
+        int counter = 0;
         try {
             CsvToBean<StateCodePOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCodeCsvFilePath, stateCodePojoClassPath);
             Iterator<StateCodePOJO> csvUserIterator = csvToBean.iterator();
@@ -57,6 +57,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
 
     public static int writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
         List<StateCensusPOJO> list = new ArrayList<>();
+        int counter = 0;
         try {
             CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
             Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
@@ -92,6 +93,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
 
 
     public static String totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
+        int counter = 0;
         try {
             CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
             Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
@@ -111,7 +113,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
     }
 
     public static List<StateCensusPOJO> genericSort(String stateCensusFilePath, String stateCensusPojoClassPath, String onTheBasisOf, String jsonFilePath) {
-
+        int counter = 0;
         List<StateCensusPOJO> list = new ArrayList<>();
         try {
             CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);

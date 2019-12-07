@@ -13,7 +13,7 @@ public class JunitStateCodeAndCensusTestClass {
     private static final String stateCensusClassPath = "com.bridgelabz.indianstate.StateCensusPOJO";
 
     @Test
-    public void givenStateCodeCSVData_Should_ReturnSizeOfRecord() throws StateCensusAnalysisException {
+    public void givenStateCodeCSVData_Should_ReturnSizeOfRecordIfMatches_ReturnHappy() throws StateCensusAnalysisException {
         StateCodeAndCensusAnalyser.writingAndSortingStateCensusDataIntoJsonFile(STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
 
         String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);

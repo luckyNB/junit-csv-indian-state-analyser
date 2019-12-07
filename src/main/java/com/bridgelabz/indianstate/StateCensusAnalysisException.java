@@ -15,7 +15,7 @@ public class StateCensusAnalysisException extends Exception {
     }
 
     enum ExceptionType {
-        NO_SUCH_FILE, WRONG_DATA_FORMAT, WRONG_FILE_TYPE
+        NO_SUCH_FILE, WRONG_DATA_FORMAT, WRONG_FILE_TYPE,WRONG_DELIMETER_OR_WRONG_HEADER
     }
 
 
