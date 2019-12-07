@@ -5,12 +5,12 @@ import com.google.gson.GsonBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -36,7 +36,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
         return null;
     }
 
-    public static String totalRecordAvailableInStateCode(int expected, String stateCodeCsvFilePath, String stateCodePojoClassPath) throws StateCensusAnalysisException {
+    public static int totalRecordAvailableInStateCode(String stateCodeCsvFilePath, String stateCodePojoClassPath) throws StateCensusAnalysisException {
         int counter = 0;
         try {
             CsvToBean<StateCodePOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCodeCsvFilePath, stateCodePojoClassPath);
@@ -45,17 +45,15 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
                 StateCodePOJO csvUser = csvUserIterator.next();
                 counter++;
             }
-            if (expected == counter)
-                return "HAPPY";
-            else
-                return "SAD";
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new StateCensusAnalysisException("Wrong Delimeter or Wrong Header");
+            return counter;
         }
+        catch (RuntimeException e) {
+            throw new StateCensusAnalysisException(StateCensusAnalysisException.ExceptionType.WRONG_FILE_TYPE, "Wrong Delimeter or Wrong Header");
+        }
+
     }
 
-    public static int writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) {
+    public static int writingAndSortingStateCensusDataIntoJsonFile(String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         List<StateCensusPOJO> list = new ArrayList<>();
         int counter = 0;
         try {
@@ -68,31 +66,30 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
                 System.out.println(csvUser.toString());
             }
             boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(list, "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/SampleJson.json");
-            if (status) {
-                System.out.println("Data written into file successfully");
-            }
-        } catch (RuntimeException | StateCensusAnalysisException e) {
-            e.printStackTrace();
+        } catch (RuntimeException | StateCensusAnalysisException | IOException e) {
+            throw new StateCensusAnalysisException(StateCensusAnalysisException.ExceptionType.WRONG_DATA_FORMAT, "Wrong Data format");
         }
         return (list.size());
     }
 
-    private static boolean writingStateCensusDataIntoJsonFile(List<StateCensusPOJO> list, String filePath) {
+    private static boolean writingStateCensusDataIntoJsonFile(List<StateCensusPOJO> list, String filePath) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(list);
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(filePath);
             fileWriter.write(json);
-            fileWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
+
+        } finally {
+            fileWriter.close();
         }
         return true;
     }
 
-
-    public static String totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
+    public static int totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         int counter = 0;
         try {
             CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
@@ -102,17 +99,14 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
                 counter++;
                 System.out.println(csvUser.toString());
             }
-            if (expected == counter)
-                return "HAPPY";
-            else
-                return "SAD";
+            return counter;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            throw new StateCensusAnalysisException("Wrong Delimeter or Wrong Header");
+            throw new StateCensusAnalysisException(StateCensusAnalysisException.ExceptionType.WRONG_DELIMETER_OR_WRONG_HEADER, "Wrong Delimeter or Wrong Header");
         }
     }
 
-    public static List<StateCensusPOJO> genericSort(String stateCensusFilePath, String stateCensusPojoClassPath, String onTheBasisOf, String jsonFilePath) {
+    public static List<StateCensusPOJO> genericSort(String stateCensusFilePath, String stateCensusPojoClassPath, String onTheBasisOf, String jsonFilePath) throws StateCensusAnalysisException {
         int counter = 0;
         List<StateCensusPOJO> list = new ArrayList<>();
         try {
@@ -133,15 +127,19 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
                         Comparable stateCensusFieldValue2 = (Comparable) stateCensusField.get(o2);
                         return stateCensusFieldValue1.compareTo(stateCensusFieldValue2);
                     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-                        e.printStackTrace();
                         // when proper field is not entered sorting or any exception occurs
+                        try {
+                            throw new StateCensusAnalysisException(StateCensusAnalysisException.ExceptionType.NO_PROPER_FIELD, "Proper field is not given ");
+                        } catch (StateCensusAnalysisException ex) {
+                            ex.printStackTrace();
+                        }
                         return 0;
                     }
                 }
             });
             StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(list, jsonFilePath);
-        } catch (RuntimeException | StateCensusAnalysisException e) {
-            e.printStackTrace();
+        } catch (RuntimeException | StateCensusAnalysisException | IOException e) {
+            throw new StateCensusAnalysisException(StateCensusAnalysisException.ExceptionType.NO_PROPER_FIELD, "Proper field is not given");
         }
         return list;
     }
