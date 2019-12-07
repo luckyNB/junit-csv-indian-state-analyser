@@ -90,57 +90,6 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
         return true;
     }
 
-    public static int sortingStateCensusDataByPopulationInAscendingOrder(String stateCensusFilePath, String stateCensusPojoClassPath) {
-        List<StateCensusPOJO> list = new ArrayList<>();
-        try {
-
-            CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
-            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
-            while (csvUserIterator.hasNext()) {
-                StateCensusPOJO csvUser = csvUserIterator.next();
-                list.add(csvUser);
-                counter++;
-                System.out.println(csvUser.toString());
-            }
-        } catch (RuntimeException | StateCensusAnalysisException e) {
-            e.printStackTrace();
-        }
-        return (list.size());
-    }
-
-    public static int sortingStateCensusDataByDensityInDescendingOrder(String stateCensusFilePath, String stateCensusPojoClassPath) {
-        List<StateCensusPOJO> list = new ArrayList<>();
-        try {
-            CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
-            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
-            while (csvUserIterator.hasNext()) {
-                StateCensusPOJO csvUser = csvUserIterator.next();
-                list.add(csvUser);
-                counter++;
-                System.out.println(csvUser.toString());
-            }
-        } catch (RuntimeException | StateCensusAnalysisException e) {
-            e.printStackTrace();
-        }
-        return (list.size());
-    }
-
-    public static int sortingStateCensusDataByAreaInSqKmInDescendingOrder(String stateCensusFilePath, String stateCensusPojoClassPath) {
-        List<StateCensusPOJO> list = new ArrayList<>();
-        try {
-            CsvToBean<StateCensusPOJO> csvToBean = StateCodeAndCensusAnalyser.openCSVBuilder(stateCensusFilePath, stateCensusPojoClassPath);
-            Iterator<StateCensusPOJO> csvUserIterator = csvToBean.iterator();
-            while (csvUserIterator.hasNext()) {
-                StateCensusPOJO csvUser = csvUserIterator.next();
-                list.add(csvUser);
-                counter++;
-                System.out.println(csvUser.toString());
-            }
-        } catch (RuntimeException | StateCensusAnalysisException e) {
-            e.printStackTrace();
-        }
-        return (list.size());
-    }
 
     public static String totalRecordAvailableInStateCensus(int expected, String stateCensusFilePath, String stateCensusPojoClassPath) throws StateCensusAnalysisException {
         try {
