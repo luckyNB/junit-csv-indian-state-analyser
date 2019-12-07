@@ -22,10 +22,11 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenFileName_WhenIncorrect_Should_ThrowStateCensusAnalysisException() {
+    public void givenStateCSVCodeFileName_WhenIncorrect_Should_ThrowStateCensusAnalysisException() {
         String result = null;
         try {
             result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);
+            Assert.assertEquals("HAPPY", result);
         } catch (StateCensusAnalysisException e) {
             Assert.assertEquals("Please Enter valid File Name or File Type", e.getMessage());
             e.printStackTrace();
@@ -33,7 +34,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenFile_WhenIncorrectFileType_Should_ThrowStateCensusAnalysisException() {
+    public void givenStateCSVCodeFile_WhenIncorrectFileType_Should_ThrowStateCensusAnalysisException() {
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);
         } catch (StateCensusAnalysisException e) {
@@ -43,7 +44,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenIncorrectDelimeter_Should_ThrowStateCensusAnalysisException() {
+    public void givenStateCSVCodeFile_WhenIncorrectDelimeter_Should_ThrowStateCensusAnalysisException() {
 
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);
@@ -54,7 +55,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenIncorrectHeader_Should_ThroStateCensusAnalysisException() {
+    public void givenStateCSVCodeFileIncorrectHeader_Should_ThroStateCensusAnalysisException() {
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCode(37, STATECODE_CSV_FILE_PATH, stateCodeClassPath);
         } catch (StateCensusAnalysisException e) {
@@ -69,7 +70,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenFileName_WhenIncorrectFileName_Should_ThrowStateCensusAnalysisException() {
+    public void giventateCensusCSVFileName_WhenIncorrectFileName_Should_ThrowStateCensusAnalysisException() {
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29, STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
 
@@ -79,7 +80,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenIncorrectDelimeterToStateCensus_Should_ThrowStateCensusAnalysisException() {
+    public void giventateCensusCSVIncorrectDelimeterToStateCensus_Should_ThrowStateCensusAnalysisException() {
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29, STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
         } catch (StateCensusAnalysisException e) {
@@ -89,7 +90,7 @@ public class JunitStateCodeAndCensusTestClass {
     }
 
     @Test
-    public void givenIncorrectHeader_Should_ThrowStateCensusAnalysisException() {
+    public void giventateCensusCSVIncorrectHeader_Should_ThrowStateCensusAnalysisException() {
         try {
             String result = StateCodeAndCensusAnalyser.totalRecordAvailableInStateCensus(29, STATECENSUS_CSV_FILE_PATH, stateCensusClassPath);
         } catch (StateCensusAnalysisException e) {
