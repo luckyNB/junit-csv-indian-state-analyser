@@ -63,7 +63,6 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
                 StateCensusPOJO csvUser = csvUserIterator.next();
                 list.add(csvUser);
                 counter++;
-                System.out.println(csvUser.toString());
             }
             boolean status = StateCodeAndCensusAnalyser.writingStateCensusDataIntoJsonFile(list, "/home/admin1/IdeaProjects/junit-csv-indian-state-analyzer/src/test/resources/SampleJson.json");
         } catch (RuntimeException | StateCensusAnalysisException | IOException e) {
@@ -106,7 +105,7 @@ public class StateCodeAndCensusAnalyser<T extends Comparable<T>> {
         }
     }
 
-    public static List<StateCensusPOJO> genericSort(String stateCensusFilePath, String stateCensusPojoClassPath, String onTheBasisOf, String jsonFilePath) throws StateCensusAnalysisException {
+    public static List<StateCensusPOJO> sortingListBasedOnField(String stateCensusFilePath, String stateCensusPojoClassPath, String onTheBasisOf, String jsonFilePath) throws StateCensusAnalysisException {
         int counter = 0;
         List<StateCensusPOJO> list = new ArrayList<>();
         try {

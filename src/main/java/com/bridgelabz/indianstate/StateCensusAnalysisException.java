@@ -10,7 +10,7 @@ public class StateCensusAnalysisException extends Exception {
     }
 
     public StateCensusAnalysisException(ExceptionType type,String message) {
-        super(message);
+        super(type.toString());
         this.type=type;
 
     }
